@@ -35,6 +35,20 @@ def instructions():
     return ""
 
 
+def statement_generator(statement, decoration):
+
+    sides = decoration * 3
+
+    statement = "{} {} {}".format(sides, statement, sides)
+    top_bottom = decoration * len(statement)
+
+    print(top_bottom)
+    print(statement)
+    print(top_bottom)
+
+    return ""
+
+
 def num_check(question, low, high):
 
     error= "Please enter an whole number between 1 and 10\n"
@@ -113,7 +127,8 @@ if rounds == "":
 else:
     print("you asked for {} rounds".format(rounds))
 
-# checks that response is an integer
+# checks that response is an integery
+
 low_num = int_check("Low Number: ")
 print("You chose a low number of ", low_num)
 
@@ -128,6 +143,42 @@ for item in range(0, 4):
     guess = int_check("Guess: ", low_num, high_num, "xxx")
     print("You guessed {}".format(guess))
 
+# To Do
+# set up empty list called already_guessed
+# when user guesses, add guess to list
+# for each guess, check that number is not in already_guessed
 
+SECRET = 7
+GUESSES_ALLOWED = 5
 
+already_guessed = []
+guesses_left = GUESSES_ALLOWED
+num_won = 0
 
+guess = ""
+
+while guess != SECRET and guesses_left >= 1:
+
+    guess = int(input("Guess: "))  # replace this with function
+
+    # check that guess is not duplicate
+    if guess in already_guessed:
+        print("You already guessed that number! Please try again "
+              "You *still* have {} guesses left".format(guesses_left))
+        continue
+
+    guesses_left -= 1
+    already_guessed.append(guess)
+
+    if guesses_left >= 1:
+
+        if guess < SECRET:
+            print("Too low, try a higher number. Guess left: ")
+
+        elif guess > SECRET:
+            print("Too high, try a lower number. Guess left: ")
+    else:
+        if guess < SECRET:
+            print("Too low!")
+        elif guess > SECRET:
+            print("Too high!")

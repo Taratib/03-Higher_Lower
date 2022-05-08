@@ -5,8 +5,6 @@
 # when user guesses, add guess to list
 # for each guess, check that number is not in already_guessed
 
-# HL component 5 - Prevent duplivcate guesses
-
 SECRET = 7
 GUESSES_ALLOWED = 5
 
