@@ -1,3 +1,5 @@
+import random
+
 # Functions go here
 
 
@@ -120,14 +122,15 @@ if played_before == "no":
 
 # Ask user for # of rounds...
 print()
-rounds = int_check("Please press <enter> for infinite or How many rounds you want: ", 1, exit_code="")
+rounds = int_check("Please press <enter> for infinite mode "
+                   "or the number of rounds you want.... ", 1, exit_code="")
 
 if rounds == "":
     print("you chose infinite mode")
 else:
     print("you asked for {} rounds".format(rounds))
 
-# checks that response is an integery
+# checks that response is an integer
 
 low_num = int_check("Low Number: ")
 print("You chose a low number of ", low_num)
