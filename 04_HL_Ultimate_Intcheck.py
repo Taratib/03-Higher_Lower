@@ -1,5 +1,5 @@
 # Number checking function goes here
-def intcheck(question, low=None, high=None, exit_code=None):
+def int_check(question, low=None, high=None, exit_code=None):
     while True:
 
         # sets up error messages
@@ -44,7 +44,7 @@ def intcheck(question, low=None, high=None, exit_code=None):
 # ***** Main Routine ******
 
 # Ask user for # of rounds..
-rounds = intcheck("How many rounds <enter> for infintite: ", 1, exit_code="")
+rounds = int_check("How many rounds <enter> for infinite: ", 1, exit_code="")
 
 if rounds == "":
     print("you chose infinite mode")
@@ -52,16 +52,16 @@ else:
     print("you asked for {} rounds".format(rounds))
 
 # checks that response is an integer
-low_num = intcheck("Low Number: ")
+low_num = int_check("Low Number: ")
 print("You chose a low number of ", low_num)
 
 # checks that response is an integer more than the low number
-high_num = intcheck("High Number: ", low_num)
+high_num = int_check("High Number: ", low_num)
 print("You chose a high number of ", high_num)
 
 # loop four times for easy testing
 for item in range(0, 4):
     # checks that the response is either the exit code
     # or a number between low_num and high_num
-    guess = intcheck("Guess: ", low_num, high_num, "xxx")
+    guess = int_check("Guess: ", low_num, high_num, "xxx")
     print("You guessed {}".format(guess))

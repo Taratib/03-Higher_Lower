@@ -1,44 +1,11 @@
+# Main routine more efficent than v2
 import math
-
-# Functions go here
-
-
-def yes_no(question):
-    valid = False
-    while not valid:
-        response = input(question).lower()
-
-        if response == "yes" or response == "y":
-            response = "yes"
-            return response
-
-        elif response == "no" or response == "n":
-            response = "no"
-            return response
-
-        else:
-            print("please answer yes / no")
-
-
-def instructions():
-    print("**** Welcome to the Higher Lower Game ****")
-    print()
-    print(''' For each game you will be asked to...
-    - Enter a 'low' and 'high' number. The computer will randomly
-      generate a 'secret' number between your two chosen numbers. it will use
-      these numbers for all the rounds in a given game.
-    - The computer will calculate how many
-      guesses you are allowed
-    - enter the number of rounds you want to play
-    - guess the secret number
-
-    Good luck !''')
-
-    return ""
+# Checks for the a number that is more then zero
 
 
 def check_rounds():
     while True:
+        print()
         response = input("Rounds: ")
 
         round_error = "Please type either <enter> or an integer that is more than 0"
@@ -56,42 +23,6 @@ def check_rounds():
                 continue
 
         return response
-
-
-def statement_generator(statement, decoration):
-
-    sides = decoration * 0
-
-    statement = "{} {} {}".format(sides, statement, sides)
-    top_bottom = decoration * len(statement)
-
-    print(top_bottom)
-    print(statement)
-    print(top_bottom)
-
-    return ""
-
-
-def num_check(question, low, high):
-
-    error = "Please enter an whole number between 1 and 10\n"
-
-    valid = False
-    while not valid:
-        try:
-            # ask the question
-            response = int(input(question))
-
-            # if the amount is too low / too high give
-            if low < response <= high:
-                return response
-
-            # output an error
-            else:
-                print(error)
-
-        except ValueError:
-            print(error)
 
 
 def int_check(question, low=None, high=None, exit_code=None):
@@ -135,31 +66,16 @@ def int_check(question, low=None, high=None, exit_code=None):
             print(error)
             continue
 
+
 # Main routine goes here
-played_before = yes_no("Have you played the game before? ")
-print()
-if played_before == "no":
-    instructions()
 
 rounds_played = 0
 
-# Ask user for # of rounds...
-print()
-rounds = int_check("Please press <enter> for infinite mode "
-                   "or the number of rounds you want.... ", 1, exit_code="")
+# Ask user for # of rounds, <enter> for infinite mode
+for item in range(0,1):  # loop component for easy testing.....
 
-if rounds == "":
-    print("")
-else:
-    print("you asked for {} rounds".format(rounds))
-
-# checks that response is an integer
-
-for item in range(0, 1):  # loop component for easy testing.....
-    # checks that response is an integer
-
-    low_num = int_check("Low Number: ")
-    high_num = int_check("High Number: ", low_num)
+    low_num = int(input("Low: "))  # use int check in due course
+    high_num = int(input("High: "))  # use int check in due course
 
     var_range = high_num - low_num + 1
     max_raw = math.log2(var_range)  # finds maximum # of guesses used
@@ -188,11 +104,7 @@ while end_game == "no":
 
     rounds_played += 1
 
-# To Do
-# set up empty list called already_guessed
-# when user guesses, add guess to list
-# for each guess, check that number is not in already_guessed
-
+    # **** rest of loop / game *****
     SECRET = 7
     GUESSES_ALLOWED = (max_guesses)
 
@@ -228,7 +140,9 @@ while end_game == "no":
             elif guess > SECRET:
                 print("Too high!")
 
-        # end game if requested # of rounds has been played
-    if rounds_played == rounds:
-        break
+            # end game if requested # of rounds has been played
+            if rounds_played == rounds:
+                break
 
+# Put end game content here
+print("Thank you for playing")
