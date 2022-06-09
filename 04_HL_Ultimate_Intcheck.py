@@ -59,6 +59,7 @@ print("You chose a low number of ", low_num)
 high_num = int_check("High Number: ", low_num)
 print("You chose a high number of ", high_num)
 
+
 # loop four times for easy testing
 for item in range(0, 4):
     # checks that the response is either the exit code

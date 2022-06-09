@@ -18,6 +18,7 @@ def yes_no(question):
 
 def instructions():
     print("**** Welcome to the Higher Lower Game ****")
+    print()
     print('''For each game you will be asked to...
     - Enter a 'low' and 'high' number. The computer will randomly
     generate a 'secret' number between your two chosen numbers. it will use

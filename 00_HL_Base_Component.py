@@ -1,4 +1,5 @@
 import math
+import random
 
 # Functions go here
 
@@ -141,40 +142,40 @@ print()
 if played_before == "no":
     instructions()
 
+game_summary = []
+
+# ask user for # of rounds then loop...
 rounds_played = 0
+rounds_won = 0
+
+# initialise lost / drawn counters
+rounds_lost = 0
+rounds_drawn = 0
 
 # Ask user for # of rounds...
 print()
-rounds = int_check("Please press <enter> for infinite mode "
-                   "or the number of rounds you want.... ", 1, exit_code="")
+rounds = int_check("Please press <enter> to begin.... ", 1, exit_code="")
 
 if rounds == "":
     print("")
 else:
-    print("you asked for {} rounds".format(rounds))
+    print("You asked for {} rounds".format(rounds))
 
 # checks that response is an integer
 
-for item in range(0, 1):  # loop component for easy testing.....
-    # checks that response is an integer
+low_num = int_check("Low Number: ")
+high_num = int_check("High Number: ", low_num + 1)
 
-    low_num = int_check("Low Number: ")
-    high_num = int_check("High Number: ", low_num)
-
-    var_range = high_num - low_num + 1
-    max_raw = math.log2(var_range)  # finds maximum # of guesses used
-    max_upped = math.ceil(max_raw)  # rounds up (ceil --> ceiling)
-    max_guesses = max_upped + 1
-    print("Max Guesses: {}".format(max_guesses))
-
-choose_instruction = "Guess a number between {} and {}".format(low_num, high_num)
+var_range = high_num - low_num + 1
+max_raw = math.log2(var_range)  # finds maximum # of guesses used
+max_upped = math.ceil(max_raw)  # rounds up (ceil --> ceiling)
+max_guesses = max_upped + 1
+print("Max Guesses: {}".format(max_guesses))
 
 rounds = check_rounds()
 
 end_game = "no"
 while end_game == "no":
-
-    # Start of the Game Play Loop
 
     # Rounds Heading
     print()
@@ -182,10 +183,11 @@ while end_game == "no":
         heading = "Continuous Mode: Round {}".format(rounds_played + 1)
 
     else:
-        heading = "Round {} of {} - You have {} guesses left ".format(rounds_played + 1, rounds, max_guesses)
+        heading = statement_generator("Round {} of {} - You have {} guesses left ".format(rounds_played + 1, rounds,
+                                                                                          max_guesses), "#")
 
     print(heading)
-
+    choose_instruction = "Guess a number between {} and {}".format(low_num, high_num)
     rounds_played += 1
 
 # To Do
@@ -193,42 +195,46 @@ while end_game == "no":
 # when user guesses, add guess to list
 # for each guess, check that number is not in already_guessed
 
-    SECRET = 7
-    GUESSES_ALLOWED = (max_guesses)
-
+    secret = random.randint(low_num, high_num)
+    guesses_allowed = (max_guesses)
     already_guessed = []
-    guesses_left = GUESSES_ALLOWED
+    guesses_left = guesses_allowed
     num_won = 0
 
     guess = ""
 
-    while guess != SECRET and guesses_left >= 1:
+    while guess != secret and guesses_left >= 1:
 
-        guess = int(input("Guess: "))  # replace this with function
+        guess = int_check("Guess: ".format(low_num, high_num))  # replace this with function
+        print()
 
         # check that guess is not duplicate
         if guess in already_guessed:
-            print("You already guessed that number! Please try again "
-                  "You *still* have {} guesses left".format(guesses_left))
+            statement_generator("You already guessed that number! Please try again "
+                                "You *still* have {} guesses left".format(guesses_left), "!")
             continue
 
         guesses_left -= 1
         already_guessed.append(guess)
 
+        if guess == secret:
+            statement_generator("Well done, you got it", "!")
+            rounds_won += 1
+
         if guesses_left >= 1:
 
-            if guess < SECRET:
-                print("Too low, try a higher number. Guess left: ")
-
-            elif guess > SECRET:
-                print("Too high, try a lower number. Guess left: ")
+            if guess < secret:
+                statement_generator("Too low, try a higher number. Guess left: ", "↑")
+                print()
+            elif guess > secret:
+                statement_generator("Too high, try a lower number. Guesses left: ", "↓")
+                print()
         else:
-            if guess < SECRET:
-                print("Too low!")
-            elif guess > SECRET:
-                print("Too high!")
+            if guess < secret:
+                statement_generator("Too low! You ran out of guesses", "↑")
+            elif guess > secret:
+                statement_generator("Too high! You ran out of guesses", "↓")
 
-        # end game if requested # of rounds has been played
+    # end game if requested # of rounds has been played
     if rounds_played == rounds:
         break
-

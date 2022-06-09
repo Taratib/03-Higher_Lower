@@ -72,18 +72,16 @@ def int_check(question, low=None, high=None, exit_code=None):
 rounds_played = 0
 
 # Ask user for # of rounds, <enter> for infinite mode
-for item in range(0,1):  # loop component for easy testing.....
 
-    low_num = int(input("Low: "))  # use int check in due course
-    high_num = int(input("High: "))  # use int check in due course
+low_num = int(input("Low: "))  # use int check in due course
+high_num = int(input("High: "))  # use int check in due course
 
-    var_range = high_num - low_num + 1
-    max_raw = math.log2(var_range)  # finds maximum # of guesses used
-    max_upped = math.ceil(max_raw)  # rounds up (ceil --> ceiling)
-    max_guesses = max_upped + 1
-    print("Max Guesses: {}".format(max_guesses))
+var_range = high_num - low_num + 1
+max_raw = math.log2(var_range)  # finds maximum # of guesses used
+max_upped = math.ceil(max_raw)  # rounds up (ceil --> ceiling)
+max_guesses = max_upped + 1
+print("Max Guesses: {}".format(max_guesses))
 
-choose_instruction = "Guess a number between {} and {}".format(low_num, high_num)
 
 rounds = check_rounds()
 
