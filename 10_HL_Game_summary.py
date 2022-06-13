@@ -3,7 +3,7 @@ game_summary = []
 rounds_lost = 0
 rounds_played = 5
 
-for item in range (1, 6):
+for item in range(1, 6):
     result = input("choose result: ")
 
     outcome = "Round {}: {}".format(item, result)
@@ -26,4 +26,4 @@ print()
 
 # display game stats with $ values to the nearest whole number
 print("******* Game Statistics ********")
-print("Win: {} \nLose: {}".format(rounds_won, rounds_lost))
+print("Worst: {} \nBest: {}".format(rounds_won, rounds_lost))

@@ -1,4 +1,5 @@
 import math
+
 import random
 
 # Functions go here
@@ -212,6 +213,7 @@ while end_game == "no":
         if guess in already_guessed:
             statement_generator("You already guessed that number! Please try again "
                                 "You *still* have {} guesses left".format(guesses_left), "!")
+            print()
             continue
 
         guesses_left -= 1
@@ -224,17 +226,50 @@ while end_game == "no":
         if guesses_left >= 1:
 
             if guess < secret:
-                statement_generator("Too low, try a higher number. Guess left: ", "↑")
+                statement_generator("Too low, try a higher number. "
+                                    "Guess left: {} ".format(guesses_left), "↑")
                 print()
             elif guess > secret:
-                statement_generator("Too high, try a lower number. Guesses left: ", "↓")
+                statement_generator("Too high, try a lower number. "
+                                    "Guesses left: {} ".format(guesses_left), "↓")
                 print()
         else:
+            decoration = "!"
             if guess < secret:
-                statement_generator("Too low! You ran out of guesses", "↑")
+                feedback = "Too low!  You lose (ran out of guesses)"
             elif guess > secret:
-                statement_generator("Too high! You ran out of guesses", "↓")
+                feedback = "Too high!  You lose (ran out of guesses)"
+            rounds_lost += 1
 
     # end game if requested # of rounds has been played
+
+    outcome = "Round {}: {}".format(rounds_played, secret)
+
+    # Outputs results...
+    game_summary.append(outcome)
+
     if rounds_played == rounds:
         break
+
+rounds_won = rounds_played - rounds_lost
+
+print()
+statement_generator("Won: {} | Lost: {}".format(rounds_won, rounds_lost), "-")
+print()
+
+# Ask user if they want to see game summary
+
+rounds = int_check("Please press <enter> to see your game summary.... ", 1, exit_code="")
+
+# **** Calculate Game Stats ******
+
+print()
+print("**** Game History *******")
+for game in game_summary:
+    print(game)
+
+print()
+
+# display game stats with values to the nearest whole number
+print("******* Game Statistics ********")
+print("Worst: {} \nBest: {} ".format(rounds_won, rounds_lost))
